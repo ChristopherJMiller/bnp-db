@@ -1,9 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { AccessTokenResponse, NewAccountResponse } from './auth.lib';
-import bcrypt from 'bcrypt';
+import { compare, genSalt, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import generator from 'generate-password';
+import { generate } from 'generate-password';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -24,23 +25,23 @@ export class AuthService {
         if (!user) {
             throw new UnauthorizedException();
         }
-        
-        const isMatch = await bcrypt.compare(password, user.passwordHash);
+
+        const isMatch = await compare(password, user.passwordHash);
 
         if (!isMatch) {
             throw new UnauthorizedException();
         }
 
-        const payload = { sub: user.id, username: user.email };
+        const payload = { sub: user.id, email: user.email };
         return {
             accessToken: await this.jwtService.signAsync(payload),
         };
     }
 
     async register(name: string, email: string): Promise<NewAccountResponse> {
-        const password = generator.generate({ length: 64, numbers: true });
-        const salt = await bcrypt.genSalt();
-        const passwordHash = await bcrypt.hash(password, salt);
+        const password = generate({ length: 64, numbers: true });
+        const salt = await genSalt();
+        const passwordHash = await hash(password, salt);
 
         await this.usersService.create({ name, email, passwordHash });
 

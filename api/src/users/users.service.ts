@@ -10,11 +10,11 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async create(user: Omit<User, 'id'>): Promise<User> {
+  async create(user: Omit<User, 'id'>): Promise<User> {    
     const dbUser = new User();
-    user.email = user.email;
-    user.name = user.name;
-    user.passwordHash = user.passwordHash;
+    dbUser.email = user.email;
+    dbUser.name = user.name;
+    dbUser.passwordHash = user.passwordHash;
 
     return this.usersRepository.save(dbUser);
   }

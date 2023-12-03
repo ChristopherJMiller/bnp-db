@@ -6,11 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { getDatabaseConfig } from './db';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { JwtModule } from '@nestjs/jwt';
 
 // 3rd Party Modules
 const LIBRARY_IMPORTS = [
-  ConfigModule.forRoot({ isGlobal: true, envFilePath: [".env.development", ".env"] }),
+  ConfigModule.forRoot({ cache: true, isGlobal: true }),
   TypeOrmModule.forRoot(getDatabaseConfig()),
 ];
 
