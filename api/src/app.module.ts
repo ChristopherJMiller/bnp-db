@@ -9,7 +9,7 @@ import { AuthModule } from './auth/auth.module';
 
 // 3rd Party Modules
 const LIBRARY_IMPORTS = [
-  ConfigModule.forRoot({ cache: true, isGlobal: true }),
+  ConfigModule.forRoot({ cache: true, isGlobal: true, envFilePath: [".env.development", ".env"] }),
   TypeOrmModule.forRoot(getDatabaseConfig()),
 ];
 
