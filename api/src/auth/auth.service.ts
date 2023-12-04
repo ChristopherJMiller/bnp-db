@@ -32,7 +32,7 @@ export class AuthService {
             throw new UnauthorizedException();
         }
 
-        const payload = { sub: user.id, email: user.email };
+        const payload = { sub: user.id, name: user.name, email: user.email };
         return {
             accessToken: await this.jwtService.signAsync(payload),
         };
@@ -48,5 +48,12 @@ export class AuthService {
         return {
             password
         };
+    }
+
+    async refreshToken(token: string): Promise<AccessTokenResponse> {
+        const payload = await this.jwtService.verifyAsync(token);
+        return {
+            accessToken: await this.jwtService.signAsync({ sub: payload.sub, name: payload.name, email: payload.email }),
+        }
     }
 }

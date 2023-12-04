@@ -17,7 +17,7 @@ import { ConfigModule } from '@nestjs/config';
           global: true,
           secret: process.env.JWT_SECRET,
           signOptions: {
-            expiresIn: '120s',
+            expiresIn: '2 days',
           }
         }
       }

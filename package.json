@@ -1,4 +1,13 @@
 {
     "private": true,
-    "workspaces": ["api", "frontend"]
+    "workspaces": [
+        "api",
+        "frontend"
+    ],
+    "scripts": {
+        "start": "concurrently \"yarn workspace frontend dev\" \"yarn workspace api start:debug\""
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
 }

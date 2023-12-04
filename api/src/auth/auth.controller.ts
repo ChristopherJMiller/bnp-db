@@ -25,4 +25,11 @@ export class AuthController {
   register(@Body() register: RegisterRequest) {
     return this.authService.register(register.name, register.email);
   }
+
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
+  @Post('refresh')
+  refresh(@Request() req) {
+    return this.authService.refreshToken(req.token);
+  }
 }
