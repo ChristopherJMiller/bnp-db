@@ -5,7 +5,7 @@
         "frontend"
     ],
     "scripts": {
-        "start": "concurrently \"yarn workspace frontend dev\" \"yarn workspace api start:debug\""
+        "dev": "concurrently \"yarn workspace frontend dev\" \"yarn workspace api start:debug\""
     },
     "devDependencies": {
         "concurrently": "^8.2.2"
