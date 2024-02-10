@@ -14,7 +14,7 @@
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
           packages = with pkgs; [ 
-            ruby_3_2 
+            ruby_3_1
             rubyPackages.rails
             
             sqlite 
